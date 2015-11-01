@@ -1,6 +1,183 @@
+@font-face
+  font-family: 'Lato Regular'
+  src: url('../fonts/Lato-Regular.ttf')
+  font-weight: normal
+
+@font-face
+  font-family: 'Lato Light'
+  src: url('../fonts/Lato-Light.ttf')
+  font-weight: lighter
+
+@font-face
+  font-family: 'Lato Bold'
+  src: url('../fonts/Lato-Bold.ttf')
+  font-weight: bold
+
+$background-color: #212225
+$dark-background-color: #1e1f21
+$base-font-color: #c7c7c7
+$base-border-color: #1e1f21
+$green-color: #b8e986
+
+$base-font: 'Lato Regular'
+$light-font: 'Lato Light'
+$bold-font: 'Lato Bold'
+
+=clearfix
+  &:after,
+  &:before
+    content: ' '
+    clear: both
+    display: table
+
+=size($width, $height: $width)
+  height: $height
+  width: $width
+
+=block
+  display: block
+
+=image($url, $size: 100%, $position: 0 0)
+  background-image: url($url)
+  background-size: $size
+  background-position: $position
+  background-repeat: no-repeat
+
 *
   box-sizing: border-box
 
 body
-  background-color: white
+  background-color: $background-color
+  font-family: $base-font
+  margin: 0
   padding-top: 15px
+
+.player_wrapper
+  align-items: stretch
+  background-color: $dark-background-color
+  bottom: 0
+  color: $base-font-color
+  display: flex
+  flex-direction: column
+  position: absolute
+  top: 15px
+
+// DASHBOARD
+.player_dashboard
+  +clearfix
+  background-color: $background-color
+  padding: 15px
+
+.player_dashboard-info
+  float: left
+
+.player_dashboard-info_song
+  font-family: $light-font
+  font-size: 13px
+  line-height: 20px
+
+.player_dashboard-info_artist
+  font-size: 13px
+  line-height: 20px
+
+.player_dashboard-actions
+  +size(70px, 40px)
+  float: right
+  position: relative
+
+.player_dashboard-actions_play,
+.player_dashboard-actions_like,
+.player_dashboard-actions_save
+  +block
+  cursor: pointer
+  position: absolute
+
+.player_dashboard-actions_play
+  +image('../images/play_icon.png')
+  +size(40px)
+  left: 0
+  top: 0
+
+  &:hover
+    background-position: 0 -42px
+
+.player_dashboard-actions_like
+  +image('../images/like_icon.png')
+  +size(18px, 15px)
+  right: 0
+  top: 0
+
+  &:hover
+    background-position: 0 -17px
+
+.player_dashboard-actions_save
+  +image('../images/save_icon.png')
+  +size(18px, 12px)
+  bottom: 0
+  right: 0
+
+  &:hover
+    background-position: 0 -14px
+
+// PROGRESS BAR
+.player_progress
+  +size(100%, 3px)
+  background-color: darken($background-color, 3%)
+  width: 300px
+
+.player_progress-inner
+  background-color: $green-color
+  height: 3px
+
+// SEARCH BAR
+.player_search
+  background-color: $background-color
+  border-bottom: 1px solid $base-border-color
+  padding: 15px
+
+.player_search-field
+  +size(100%, 30px)
+  background-color: lighten($background-color, 2%)
+  border-radius: 2px
+  border: 1px solid $base-border-color
+  color: $base-font-color
+  font-family: $base-font
+  font-size: 12px
+  line-height: 30px
+  padding: 0 10px
+
+  &:focus
+    border-color: $green-color
+    outline: none
+
+// PLAYLIST
+.player_playlist
+  flex-grow: 2
+
+.player_playlist-song
+  +block
+  background-color: $background-color
+  border-bottom: 1px solid $base-border-color
+  cursor: pointer
+  font-family: $light-font
+  font-size: 12px
+  line-height: 20px
+  padding: 10px 15px
+  position: relative
+
+  & > b
+    font-family: $base-font
+
+  &:hover
+    background-color: lighten($background-color, 1%)
+
+.player_playlist-song_icon
+  +block
+  +image('../images/plus_icon.png')
+  +size(20px)
+  position: absolute
+  right: 15px
+  top: 10px
+
+  &:hover
+    background-position: 0 -22px

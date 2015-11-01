@@ -1,4 +1,14 @@
 require('./../stylesheets/application.sass')
 
-window.ipc.send('renderer:data_request')
-window.ipc.on('renderer:data_response', data => console.log(data))
+import React from 'react'
+import ReactDOM from 'react-dom'
+import PlayerWrapper from './components/player_wrapper'
+
+const element = document.getElementById('player')
+
+ipc.send('renderer:data_request')
+
+ipc.on('renderer:data_response', (data) => {
+  ReactDOM.render(<PlayerWrapper />, element)
+})
+
