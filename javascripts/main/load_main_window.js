@@ -12,7 +12,7 @@ const windowSettings = {
 // otherwise it will be garbage-collected
 export default function loadMainWindow(windows) {
   windows.mainWindow = new BrowserWindow(windowSettings)
-  windows.mainWindow.loadUrl('file://' + __dirname + '/index.html')
+  windows.mainWindow.loadUrl('file://' + app.getAppPath() + '/index.html')
   // windows.mainWindow.openDevTools()
 
   windows.mainWindow.on('closed', () => {

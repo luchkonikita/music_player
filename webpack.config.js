@@ -3,7 +3,7 @@ const path = require('path')
 
 module.exports = {
   entry: {
-    application: './javascripts/application.js'
+    application: './javascripts/renderer/application.js'
   },
   output: {
     path: __dirname,
