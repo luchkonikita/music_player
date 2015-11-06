@@ -30,6 +30,7 @@
     "mocha": "^2.3.3",
     "node-sass": "^3.3.3",
     "phantomjs": "^1.9.18",
+    "phantomjs-polyfill": "0.0.1",
     "raw-loader": "^0.5.1",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",

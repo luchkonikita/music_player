@@ -1,4 +1,4 @@
-require('./../stylesheets/application.sass')
+require('./../../stylesheets/application.sass')
 
 import React from 'react'
 import ReactDOM from 'react-dom'
