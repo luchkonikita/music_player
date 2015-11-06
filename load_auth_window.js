@@ -25,22 +25,20 @@ function parseAuthData(urlString) {
   return querystring.parse(urlString.split('#')[1])
 }
 
-export default function loadAuthWindow() {
+export default function loadAuthWindow(windows) {
+  windows.authWindow = new BrowserWindow(windowSettings)
 
   return new Promise((resolve, reject) => {
-    const authWindow = new BrowserWindow(windowSettings)
 
-    authWindow.loadUrl(authUrl)
-
-    authWindow.webContents.on('did-finish-load', () => {
-      const currentUrl = authWindow.webContents.getUrl()
+    windows.authWindow.loadUrl(authUrl)
+    windows.authWindow.webContents.on('did-finish-load', () => {
+      const currentUrl = windows.authWindow.webContents.getUrl()
 
       if (authDataLoaded(currentUrl)) {
         const fetchedData = parseAuthData(currentUrl)
 
         saveData(fetchedData).then(() => {
-          authWindow.close()
-          resolve(data)
+          resolve(fetchedData)
         })
       }
     })

@@ -1,4 +1,5 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const path = require('path')
 
 module.exports = {
   entry: {
@@ -10,7 +11,10 @@ module.exports = {
     publicPath: 'http://localhost:8080/'
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx'],
+    alias: {
+      images: (path.resolve(__dirname) + '/images')
+    }
   },
   module: {
     loaders: [
@@ -30,6 +34,10 @@ module.exports = {
       {
         test: /\.(png|ttf)$/,
         loader: 'url-loader?limit=100000'
+      },
+      {
+        test: /\.svg$/,
+        loader: 'raw'
       }
     ]
   },

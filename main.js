@@ -13,9 +13,14 @@ import {loadData} from './data_actions'
 // 'renderer:data_response'    response to previous request event
 
 // LAUNCH APP
-let mainWindow = null
-let userData = null
 const emitter = new EventEmitter()
+
+let windows = {
+  mainWindow: null,
+  authWindow: null
+}
+
+let userData = null
 
 app.on('ready', () => {
 
@@ -29,13 +34,18 @@ app.on('ready', () => {
   // AUTHORIZE IF NEEDED
   emitter.on('main:load_main_window', (data) => {
     userData = data
-    loadMainWindow(mainWindow)
+    loadMainWindow(windows)
   })
 
   // OPEN MAIN WINDOW
   emitter.on('main:load_auth_window', () => {
-    const promise = loadAuthWindow()
-    promise.then(data => emitter.emit('main:load_main_window', data))
+    const promise = loadAuthWindow(windows)
+    promise.then(data => {
+      emitter.emit('main:load_main_window', data)
+      if (windows.authWindow) {
+        windows.authWindow.close()
+      }
+    })
   })
 
   // LISTEN TO IT'S REQUESTS
