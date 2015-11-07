@@ -1,0 +1,13 @@
+import keyMirror from 'keyMirror'
+
+export default keyMirror({
+  START_REQUEST: null,
+  END_REQUEST: null,
+  RECEIVE_SONGS: null,
+  SELECT_SONG: null,
+  PLAY: null,
+  PAUSE: null,
+  UPDATE_PROGRESS: null,
+  ADD_SONG: null,
+  MARK_SONG_AS_ADDED: null,
+})

@@ -27,6 +27,7 @@
     "karma-mocha-reporter": "^1.1.1",
     "karma-phantomjs-launcher": "^0.2.1",
     "karma-webpack": "^1.7.0",
+    "keymirror": "^0.1.1",
     "mocha": "^2.3.3",
     "node-sass": "^3.3.3",
     "phantomjs": "^1.9.18",

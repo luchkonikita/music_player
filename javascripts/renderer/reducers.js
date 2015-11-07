@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux'
-import {START_REQUEST, END_REQUEST, RECEIVE_SONGS, PLAY, PAUSE, SELECT_SONG, UPDATE_PROGRESS} from './actions'
+import actionTypes from './action_types'
 
 const defaultSongs = []
 const defaultSong = {
@@ -17,14 +17,13 @@ function userData(state = {}, action) {
 
 function currentSong(state = defaultSong, action) {
   switch (action.type) {
-    case SELECT_SONG:
+    case actionTypes.SELECT_SONG:
       return Object.assign({}, defaultSong, action.song)
-    case PLAY:
+    case actionTypes.PLAY:
       return Object.assign({}, state, {isPlaying: true})
-    case PAUSE:
+    case actionTypes.PAUSE:
       return Object.assign({}, state, {isPlaying: false})
-    case UPDATE_PROGRESS:
-      console.log(action.song)
+    case actionTypes.UPDATE_PROGRESS:
       return Object.assign({}, state, action.song)
     default:
       return state
@@ -33,7 +32,7 @@ function currentSong(state = defaultSong, action) {
 
 function songsList(state = defaultSongs, action) {
   switch (action.type) {
-    case RECEIVE_SONGS:
+    case actionTypes.RECEIVE_SONGS:
       return action.songs.filter(song => song.title)
     default:
       return state
@@ -42,9 +41,9 @@ function songsList(state = defaultSongs, action) {
 
 function isFetching(state = false, action) {
   switch (action.type) {
-    case START_REQUEST:
+    case actionTypes.START_REQUEST:
       return true
-    case END_REQUEST:
+    case actionTypes.END_REQUEST:
       return false
     default:
       return state

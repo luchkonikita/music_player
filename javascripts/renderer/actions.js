@@ -1,62 +1,53 @@
 import querystring from 'querystring'
+import actionTypes from './action_types'
 
 const VK_API_URL = 'https://api.vk.com/method/'
 const VK_API_VERSION = '5.37'
 
-export const START_REQUEST = 'START_REQUEST'
-export const END_REQUEST = 'END_REQUEST'
-export const RECEIVE_SONGS = 'RECEIVE_SONGS'
-export const SELECT_SONG = 'SELECT_SONG'
-export const PLAY = 'PLAY'
-export const PAUSE = 'PAUSE'
-export const UPDATE_PROGRESS = 'UPDATE_PROGRESS'
-export const ADD_SONG = 'ADD_SONG'
-export const MARK_SONG_AS_ADDED = 'MARK_SONG_AS_ADDED'
-
 export function play() {
   return {
-    type: PLAY,
+    type: actionTypes.PLAY,
     isPlaying: true
   }
 }
 
 export function pause() {
   return {
-    type: PAUSE,
+    type: actionTypes.PAUSE,
     isPlaying: false
   }
 }
 
 export function selectSong(song) {
   return {
-    type: SELECT_SONG,
+    type: actionTypes.SELECT_SONG,
     song
   }
 }
 
 export function updateProgress(song) {
   return {
-    type: UPDATE_PROGRESS,
+    type: actionTypes.UPDATE_PROGRESS,
     song
   }
 }
 
 export function startRequest() {
   return {
-    type: START_REQUEST
+    type: actionTypes.START_REQUEST
   }
 }
 
 export function endRequest() {
   return {
-    type: END_REQUEST
+    type: actionTypes.END_REQUEST
   }
 }
 
 
 export function receiveSongs(songs) {
   return {
-    type: RECEIVE_SONGS,
+    type: actionTypes.RECEIVE_SONGS,
     songs
   }
 }
@@ -94,7 +85,7 @@ export function fetchSongs(value) {
 export function markSongAsAdded(song) {
   console.log(song)
   return {
-    type: MARK_SONG_AS_ADDED,
+    type: actionTypes.MARK_SONG_AS_ADDED,
     song
   }
 }
