@@ -33,7 +33,17 @@ function currentSong(state = defaultSong, action) {
 function songsList(state = defaultSongs, action) {
   switch (action.type) {
     case actionTypes.RECEIVE_SONGS:
-      return action.songs.filter(song => song.title)
+      return action.songs.filter(song => {
+        return song.title
+      }).map(song => {
+        return action.term ? song : Object.assign({}, song, {isOwn: true})
+      })
+    case actionTypes.MARK_SONG:
+      if (action.action === 'add') {
+        return state.map(song => (song.id === action.song.id) ? Object.assign({}, song, {isAdded: true}) : song)
+      } else {
+        return state.filter(song => song.id !== action.song.id)
+      }
     default:
       return state
   }

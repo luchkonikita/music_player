@@ -234,7 +234,15 @@ body
 
 .player_playlist-song_icon
   +block
+  +icon-hover
   +size(20px)
+  opacity: 0
   position: absolute
   right: 15px
   top: 10px
+  transform: scale(.5)
+  transition: all 300ms
+
+  .player_playlist-song:hover &
+    opacity: 1
+    transform: scale(1)

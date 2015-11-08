@@ -7,7 +7,7 @@ import PlayerProgress from './player_progress'
 import PlayerSearch from './player_search'
 import PlayerPlaylist from './player_playlist'
 import PlayerOverlay from './player_overlay'
-import {fetchSongs, addSong, selectSong, play, pause, updateProgress} from '../actions'
+import {fetchSongs, toggleSong, selectSong, play, pause, updateProgress} from '../actions'
 
 class PlayerWrapper extends React.Component {
 
@@ -59,12 +59,11 @@ class PlayerWrapper extends React.Component {
         <PlayerPlaylist
          songs={songs}
          onSongSelect={song => {
-          // dispatch(pause())
           dispatch(selectSong(song))
           dispatch(play())
          }}
-         onSongAdd={song => {
-          dispatch(addSong(song))
+         onToggleSong={song => {
+          dispatch(toggleSong(song, (song.isOwn ? 'delete' : 'add')))
          }} />
 
          <PlayerOverlay isFetching={isFetching} />

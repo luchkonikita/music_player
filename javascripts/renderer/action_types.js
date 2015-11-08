@@ -10,5 +10,5 @@ export default keyMirror({
   PAUSE: null,
   UPDATE_PROGRESS: null,
   ADD_SONG: null,
-  MARK_SONG_AS_ADDED: null,
+  MARK_SONG: null,
 })

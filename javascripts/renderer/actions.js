@@ -51,45 +51,55 @@ export function failRequest(reason) {
   }
 }
 
-export function receiveSongs(songs) {
+export function receiveSongs(songs, term) {
   return {
     type: actionTypes.RECEIVE_SONGS,
-    songs
+    songs,
+    term
   }
 }
 
 export function fetchSongs(searchQuery) {
   return function (dispatch, getState) {
+    dispatch(startRequest())
+
     const method = searchQuery ? 'audio.search?' : 'audio.get?'
     const params = querystring.stringify({
       q: searchQuery,
       access_token: getState().userData.access_token,
-      v: VK_API_VERSION
+      v: VK_API_VERSION,
+      count: (searchQuery ? 100 : 3000)
     })
 
-    const url = VK_API_URL + method + params
-
-    dispatch(startRequest())
-
-    return fetch(url)
+    return fetch(VK_API_URL + method + params)
       .then(ret => ret.json())
       .then(json => {
         dispatch(endRequest())
-        json.response ? dispatch(receiveSongs(json.response.items)) : dispatch(failRequest(json.errors))
+        if (json.response) {
+          dispatch(receiveSongs(json.response.items, searchQuery))
+        } else {
+          dispatch(failRequest(json.errors))
+        }
       })
       .catch(ex => dispatch(failRequest(ex)))
   }
 }
 
-export function markSongAsAdded(song) {
+export function markSong(song, action) {
   return {
-    type: actionTypes.MARK_SONG_AS_ADDED,
-    song
+    type: actionTypes.MARK_SONG,
+    song,
+    action
   }
 }
 
-export function addSong(song) {
+export function toggleSong(song, action) {
+  if (action !== 'add' && action !== 'delete') {
+    throw 'To toggle song you need provide action: "add" or "delete"'
+  }
   return function (dispatch, getState) {
+    dispatch(startRequest())
+
     const params = querystring.stringify({
       owner_id: song.owner_id,
       audio_id: song.id,
@@ -97,15 +107,11 @@ export function addSong(song) {
       v: VK_API_VERSION
     })
 
-    const url = VK_API_URL + 'audio.add?' + params
-
-    dispatch(startRequest())
-
-    return fetch(url)
+    return fetch(VK_API_URL + `audio.${action}?` + params)
       .then(ret => ret.json())
       .then(json => {
         dispatch(endRequest())
-        json.response ? dispatch(markSongAsAdded(song)) : dispatch(failRequest(json.errors))
+        json.response ? dispatch(markSong(song, action)) : dispatch(failRequest(json.errors))
       })
       .catch(ex => failRequest(ex))
   }
