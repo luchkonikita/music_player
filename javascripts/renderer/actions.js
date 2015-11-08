@@ -44,6 +44,12 @@ export function endRequest() {
   }
 }
 
+export function failRequest(reason) {
+  return {
+    type: actionTypes.FAIL_REQUEST,
+    errorMessage: reason
+  }
+}
 
 export function receiveSongs(songs) {
   return {
@@ -52,38 +58,30 @@ export function receiveSongs(songs) {
   }
 }
 
-export function fetchSongs(value) {
+export function fetchSongs(searchQuery) {
   return function (dispatch, getState) {
-    const method = value ? '/audio.search?' : '/audio.get?'
+    const method = searchQuery ? 'audio.search?' : 'audio.get?'
     const params = querystring.stringify({
-      q: value,
+      q: searchQuery,
       access_token: getState().userData.access_token,
       v: VK_API_VERSION
     })
 
     const url = VK_API_URL + method + params
 
-    // TODO mb generalize setting a loading state and reuse for other events
     dispatch(startRequest())
 
     return fetch(url)
       .then(ret => ret.json())
       .then(json => {
         dispatch(endRequest())
-
-        if (json.response) {
-
-          dispatch(receiveSongs(json.response.items))
-        } else {
-          // TODO implement errors
-          // dispatch(showNetworkError())
-        }
+        json.response ? dispatch(receiveSongs(json.response.items)) : dispatch(failRequest(json.errors))
       })
+      .catch(ex => dispatch(failRequest(ex)))
   }
 }
 
 export function markSongAsAdded(song) {
-  console.log(song)
   return {
     type: actionTypes.MARK_SONG_AS_ADDED,
     song
@@ -99,7 +97,7 @@ export function addSong(song) {
       v: VK_API_VERSION
     })
 
-    const url = VK_API_URL + '/audio.add?' + params
+    const url = VK_API_URL + 'audio.add?' + params
 
     dispatch(startRequest())
 
@@ -107,13 +105,8 @@ export function addSong(song) {
       .then(ret => ret.json())
       .then(json => {
         dispatch(endRequest())
-
-        if (json.response) {
-          dispatch(markSongAsAdded(song))
-        } else {
-          // TODO implement errors
-          // dispatch(showNetworkError())
-        }
+        json.response ? dispatch(markSongAsAdded(song)) : dispatch(failRequest(json.errors))
       })
+      .catch(ex => failRequest(ex))
   }
 }

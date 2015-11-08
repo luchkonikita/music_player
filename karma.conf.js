@@ -18,6 +18,8 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'node_modules/phantomjs-polyfill/bind-polyfill.js',
+      'node_modules/whatwg-fetch/fetch.js',
+      'node_modules/es6-promise/dist/es6-promise.min.js',
       'javascripts/**/*_spec.js'
     ],
 
@@ -39,14 +41,15 @@ module.exports = function(config) {
       require('karma-mocha'),
       require('karma-mocha-reporter'),
       require('karma-chai'),
-      require('karma-phantomjs-launcher')
+      require('karma-phantomjs-launcher'),
+      require('karma-osx-reporter')
     ],
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['mocha'],
+    reporters: ['mocha', 'osx'],
 
 
     webpack: webpackConfig,

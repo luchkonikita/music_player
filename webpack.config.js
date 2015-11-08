@@ -39,6 +39,9 @@ module.exports = {
         test: /\.svg$/,
         loader: 'raw'
       }
+    ],
+    noParse: [
+      /node_modules\/sinon/,
     ]
   },
   plugins: [
