@@ -31,9 +31,14 @@ class PlayerWrapper extends React.Component {
   componentDidUpdate() {
     // toggle playback
     this.props.currentSong.isPlaying ? this.refs.audio.play() : this.refs.audio.pause()
+
     // update current time if neccessary
-    if (this.refs.audio.currentTime !== this.props.currentSong.currentTime) {
-      this.refs.audio.currentTime = this.props.currentSong.currentTime
+    // debounced -/+ 10 seconds
+    const minTime = this.refs.audio.currentTime - 10
+    const maxTime = this.refs.audio.currentTime + 10
+    const currentTimeFromState = this.props.currentSong.currentTime
+    if (!(minTime < currentTimeFromState && currentTimeFromState < maxTime)) {
+      this.refs.audio.currentTime = currentTimeFromState
     }
   }
 
