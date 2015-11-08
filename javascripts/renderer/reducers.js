@@ -1,7 +1,10 @@
 import {combineReducers} from 'redux'
 import actionTypes from './action_types'
 
-const defaultSongs = []
+const defaultSongsList = {
+  term: '',
+  items: []
+}
 const defaultSong = {
   title: '--',
   artist: '--',
@@ -30,19 +33,27 @@ function currentSong(state = defaultSong, action) {
   }
 }
 
-function songsList(state = defaultSongs, action) {
+function songsList(state = defaultSongsList, action) {
   switch (action.type) {
     case actionTypes.RECEIVE_SONGS:
-      return action.songs.filter(song => {
+      const songs = action.songs.filter(song => {
         return song.title
       }).map(song => {
         return action.term ? song : Object.assign({}, song, {isOwn: true})
       })
+      return {
+        term: action.term,
+        items: songs
+      }
     case actionTypes.MARK_SONG:
       if (action.action === 'add') {
-        return state.map(song => (song.id === action.song.id) ? Object.assign({}, song, {isAdded: true}) : song)
+        return Object.assign({}, state, {
+          items: state.items.map(song => (song.id === action.song.id) ? Object.assign({}, song, {isAdded: true}) : song)
+        })
       } else {
-        return state.filter(song => song.id !== action.song.id)
+        return Object.assign({}, state, {
+          items: state.items.filter(song => song.id !== action.song.id)
+        })
       }
     default:
       return state

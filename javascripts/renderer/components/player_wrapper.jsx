@@ -33,7 +33,7 @@ class PlayerWrapper extends React.Component {
   }
 
   render() {
-    const {dispatch, songs, currentSong, userData, isFetching} = this.props
+    const {dispatch, songsList, currentSong, userData, isFetching} = this.props
 
     const wrapperClassName = classNames({
       'player_wrapper': true,
@@ -52,12 +52,13 @@ class PlayerWrapper extends React.Component {
          song={currentSong} />
 
         <PlayerSearch
+         term={songsList.term}
          onSubmit={value => {
           dispatch(fetchSongs(value, userData.access_token))
          }} />
 
         <PlayerPlaylist
-         songs={songs}
+         songs={songsList.items}
          onSongSelect={song => {
           dispatch(selectSong(song))
           dispatch(play())
@@ -75,7 +76,7 @@ class PlayerWrapper extends React.Component {
 function select(state) {
   return {
     currentSong: state.currentSong,
-    songs: state.songsList,
+    songsList: state.songsList,
     userData: state.userData,
     isFetching: state.isFetching
   }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.4 (15575) - http://www.bohemiancoding.com/sketch -->
+    <title>reset_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Artboard-1" sketch:type="MSArtboardGroup" transform="translate(-607.000000, -91.000000)">
+            <g id="reset_icon" sketch:type="MSLayerGroup" transform="translate(607.000000, 91.000000)">
+                <path d="M10,18 L10,18 C14.418278,18 18,14.418278 18,10 C18,5.581722 14.418278,2 10,2 C5.581722,2 2,5.581722 2,10 C2,14.418278 5.581722,18 10,18 L10,18 Z M10,20 L10,20 C4.4771525,20 0,15.5228475 0,10 C0,4.4771525 4.4771525,0 10,0 C15.5228475,0 20,4.4771525 20,10 C20,15.5228475 15.5228475,20 10,20 L10,20 Z" id="Shape" fill="#8B8F99" sketch:type="MSShapeGroup"></path>
+                <rect id="Rectangle-23" fill="#8B8E99" sketch:type="MSShapeGroup" transform="translate(10.000000, 10.000000) rotate(-315.000000) translate(-10.000000, -10.000000) " x="9" y="6" width="2" height="8" rx="1"></rect>
+                <rect id="Rectangle-24" fill="#8B8E99" sketch:type="MSShapeGroup" transform="translate(10.000000, 10.000000) rotate(-315.000000) translate(-10.000000, -10.000000) " x="6" y="9" width="8" height="2" rx="1"></rect>
+            </g>
+        </g>
+    </g>
+</svg>
