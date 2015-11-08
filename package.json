@@ -4,8 +4,10 @@
   "description": "",
   "main": "setup.js",
   "scripts": {
-    "application": "electron .",
-    "assets": "webpack-dev-server --hot --inline --progress --colors --port 8080",
+    "app:development": "NODE_ENV=development electron .",
+    "app:production": "NODE_ENV=production electron .",
+    "assets:serve": "webpack-dev-server --hot --inline --progress --colors --port 8080",
+    "assets:build": "NODE_ENV=production webpack",
     "test": "karma start"
   },
   "author": "",

@@ -1,5 +1,14 @@
+const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const path = require('path')
+
+const plugins = [
+  new ExtractTextPlugin('public/stylesheets/application.css')
+]
+
+if (process.env.NODE_ENV === 'production') {
+  plugins.push(new webpack.optimize.UglifyJsPlugin())
+}
 
 module.exports = {
   entry: {
@@ -7,7 +16,7 @@ module.exports = {
   },
   output: {
     path: __dirname,
-    filename: 'application.js',
+    filename: 'public/javascripts/application.js',
     publicPath: 'http://localhost:8080/'
   },
   resolve: {
@@ -32,8 +41,8 @@ module.exports = {
         loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
       },
       {
-        test: /\.(png|ttf)$/,
-        loader: 'url-loader?limit=100000'
+        test: /\.(ttf)$/,
+        loader: 'url-loader?limit=100000&name=./public/fonts/[hash].[ext]'
       },
       {
         test: /\.svg$/,
@@ -44,7 +53,5 @@ module.exports = {
       /node_modules\/sinon/,
     ]
   },
-  plugins: [
-    new ExtractTextPlugin('application.css')
-  ]
+  plugins: plugins
 }

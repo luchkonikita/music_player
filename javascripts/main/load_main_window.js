@@ -1,8 +1,10 @@
 import app from 'app'
 import BrowserWindow from 'browser-window'
 
+const isDevelopment = (process.env.NODE_ENV === 'development')
+
 const windowSettings = {
-  'width': 360,
+  'width': (isDevelopment ? 1200 : 360),
   'height': 400,
   'resizable': false,
   'title-bar-style': 'hidden'
@@ -12,8 +14,11 @@ const windowSettings = {
 // otherwise it will be garbage-collected
 export default function loadMainWindow(windows) {
   windows.mainWindow = new BrowserWindow(windowSettings)
-  windows.mainWindow.loadUrl('file://' + app.getAppPath() + '/index.html')
-  // windows.mainWindow.openDevTools()
+  windows.mainWindow.loadUrl('file://' + app.getAppPath() + (isDevelopment ? '/index_dev.html' : '/index.html'))
+
+  if (isDevelopment) {
+    windows.mainWindow.openDevTools()
+  }
 
   windows.mainWindow.on('closed', () => {
     windows.mainWindow = null
