@@ -6,6 +6,7 @@ export default keyMirror({
   FAIL_REQUEST: null,
   RECEIVE_SONGS: null,
   SELECT_SONG: null,
+  SEEK: null,
   PLAY: null,
   PAUSE: null,
   UPDATE_PROGRESS: null,

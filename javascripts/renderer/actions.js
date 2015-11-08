@@ -18,6 +18,13 @@ export function pause() {
   }
 }
 
+export function seek(progress) {
+  return {
+    type: actionTypes.SEEK,
+    progress
+  }
+}
+
 export function selectSong(song) {
   return {
     type: actionTypes.SELECT_SONG,

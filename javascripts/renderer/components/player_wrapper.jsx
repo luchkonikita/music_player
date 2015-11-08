@@ -7,7 +7,7 @@ import PlayerProgress from './player_progress'
 import PlayerSearch from './player_search'
 import PlayerPlaylist from './player_playlist'
 import PlayerOverlay from './player_overlay'
-import {fetchSongs, toggleSong, selectSong, play, pause, updateProgress} from '../actions'
+import {fetchSongs, toggleSong, selectSong, play, pause, seek, updateProgress} from '../actions'
 
 class PlayerWrapper extends React.Component {
 
@@ -29,7 +29,12 @@ class PlayerWrapper extends React.Component {
   }
 
   componentDidUpdate() {
+    // toggle playback
     this.props.currentSong.isPlaying ? this.refs.audio.play() : this.refs.audio.pause()
+    // update current time if neccessary
+    if (this.refs.audio.currentTime !== this.props.currentSong.currentTime) {
+      this.refs.audio.currentTime = this.props.currentSong.currentTime
+    }
   }
 
   render() {
@@ -46,10 +51,15 @@ class PlayerWrapper extends React.Component {
 
         <PlayerDashboard
          song={currentSong}
-         onPlayClick={this._togglePlay.bind(this)} />
+         onPlayClick={
+          this._togglePlay.bind(this)
+         } />
 
         <PlayerProgress
-         song={currentSong} />
+         song={currentSong}
+         onSeek={value => {
+          dispatch(seek(value))
+         }} />
 
         <PlayerSearch
          term={songsList.term}

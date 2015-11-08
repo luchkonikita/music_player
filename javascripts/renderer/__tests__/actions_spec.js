@@ -59,6 +59,17 @@ context('sync actions', () => {
     })
   })
 
+  describe('actions.seek', () => {
+    it('returns expected action', () => {
+      const expectedAction = {
+        type: actionTypes.SEEK,
+        progress: 50
+      }
+
+      assert.deepEqual(actions.seek(50), expectedAction)
+    })
+  })
+
   describe('actions.startRequest', () => {
     it('returns expected action', () => {
       const expectedAction = {

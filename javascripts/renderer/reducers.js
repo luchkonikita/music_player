@@ -28,6 +28,10 @@ function currentSong(state = defaultSong, action) {
       return Object.assign({}, state, {isPlaying: false})
     case actionTypes.UPDATE_PROGRESS:
       return Object.assign({}, state, action.song)
+    case actionTypes.SEEK:
+      return Object.assign({}, state, {
+        currentTime: parseInt(state.duration / 100 * action.progress)
+      })
     default:
       return state
   }

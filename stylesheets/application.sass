@@ -171,10 +171,15 @@ body
 .player_progress
   +size(100%, 3px)
   background-color: darken($background-color, 3%)
+  cursor: pointer
   left: 0
   position: fixed
   top: 85px
-  z-index: 2
+  transition: transform 200ms
+  z-index: 3
+
+  &:hover
+    transform: scaleY(3)
 
 .player_progress-inner
   background-color: $highlight-color
