@@ -3,7 +3,7 @@ const SECONDS_IN_MINUTE = 60
 
 function formatUnit(val) {
   const intValue = parseInt(val)
-  return (intValue > 10 ? intValue.toString() : `0${intValue}`)
+  return (intValue >= 10 ? intValue.toString() : `0${intValue}`)
 }
 
 export default function formatSeconds(seconds) {
