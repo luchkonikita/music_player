@@ -1,5 +1,7 @@
 # Music player for VK.com
 
+![alt text](docs/screenshot.png 'App screenshot')
+
 Current functionality includes:
 
 * Retrieving user's audios
