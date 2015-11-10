@@ -15,7 +15,7 @@ import {loadData} from './data_actions'
 // LAUNCH APP
 const emitter = new EventEmitter()
 
-let windows = {
+const windows = {
   mainWindow: null,
   authWindow: null
 }
@@ -23,11 +23,10 @@ let windows = {
 let userData = null
 
 app.on('ready', () => {
-
   // GET DATA
   emitter.on('main:check_credentials', () => {
     const promise = loadData()
-    promise.then(data => emitter.emit('main:load_main_window', data))
+    promise.then((data) => emitter.emit('main:load_main_window', data))
     promise.catch(() => emitter.emit('main:load_auth_window'))
   })
 
@@ -40,7 +39,7 @@ app.on('ready', () => {
   // OPEN MAIN WINDOW
   emitter.on('main:load_auth_window', () => {
     const promise = loadAuthWindow(windows)
-    promise.then(data => {
+    promise.then((data) => {
       emitter.emit('main:load_main_window', data)
       if (windows.authWindow) {
         windows.authWindow.close()
@@ -55,5 +54,4 @@ app.on('ready', () => {
 
   // TRIGGER INITIAL EVENT
   emitter.emit('main:check_credentials')
-
 })

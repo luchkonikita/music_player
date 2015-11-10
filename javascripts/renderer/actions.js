@@ -67,7 +67,7 @@ export function receiveSongs(songs, term) {
 }
 
 export function fetchSongs(searchQuery) {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     dispatch(startRequest())
 
     const method = searchQuery ? 'audio.search?' : 'audio.get?'
@@ -79,8 +79,8 @@ export function fetchSongs(searchQuery) {
     })
 
     return fetch(VK_API_URL + method + params)
-      .then(ret => ret.json())
-      .then(json => {
+      .then((ret) => ret.json())
+      .then((json) => {
         dispatch(endRequest())
         if (json.response) {
           dispatch(receiveSongs(json.response.items, searchQuery))
@@ -88,7 +88,7 @@ export function fetchSongs(searchQuery) {
           dispatch(failRequest(json.errors))
         }
       })
-      .catch(ex => dispatch(failRequest(ex)))
+      .catch((ex) => dispatch(failRequest(ex)))
   }
 }
 
@@ -104,7 +104,7 @@ export function toggleSong(song, action) {
   if (action !== 'add' && action !== 'delete') {
     throw 'To toggle song you need provide action: "add" or "delete"'
   }
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     dispatch(startRequest())
 
     const params = querystring.stringify({
@@ -115,11 +115,11 @@ export function toggleSong(song, action) {
     })
 
     return fetch(VK_API_URL + `audio.${action}?` + params)
-      .then(ret => ret.json())
-      .then(json => {
+      .then((ret) => ret.json())
+      .then((json) => {
         dispatch(endRequest())
         json.response ? dispatch(markSong(song, action)) : dispatch(failRequest(json.errors))
       })
-      .catch(ex => failRequest(ex))
+      .catch((ex) => failRequest(ex))
   }
 }

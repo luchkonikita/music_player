@@ -4,7 +4,6 @@ import validateUserData from '../validate_user_data'
 const ONE_DAY = 86400
 
 describe('validateUserData', () => {
-
   it('returns false for empty data', () => {
     const userData = {}
     assert.equal(validateUserData(userData), false)

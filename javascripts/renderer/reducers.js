@@ -40,9 +40,9 @@ function currentSong(state = defaultSong, action) {
 function songsList(state = defaultSongsList, action) {
   switch (action.type) {
     case actionTypes.RECEIVE_SONGS:
-      const songs = action.songs.filter(song => {
+      const songs = action.songs.filter((song) => {
         return song.title
-      }).map(song => {
+      }).map((song) => {
         return action.term ? song : Object.assign({}, song, {isOwn: true})
       })
       return {
@@ -52,11 +52,11 @@ function songsList(state = defaultSongsList, action) {
     case actionTypes.MARK_SONG:
       if (action.action === 'add') {
         return Object.assign({}, state, {
-          items: state.items.map(song => (song.id === action.song.id) ? Object.assign({}, song, {isAdded: true}) : song)
+          items: state.items.map((song) => (song.id === action.song.id) ? Object.assign({}, song, {isAdded: true}) : song)
         })
       } else {
         return Object.assign({}, state, {
-          items: state.items.filter(song => song.id !== action.song.id)
+          items: state.items.filter((song) => song.id !== action.song.id)
         })
       }
     default:

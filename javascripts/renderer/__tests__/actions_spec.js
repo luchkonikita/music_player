@@ -10,7 +10,6 @@ import * as actions from '../actions'
 // Specs for sync actions
 // ----------------------
 context('sync actions', () => {
-
   describe('actions.play', () => {
     it('returns expected action', () => {
       const expectedAction = {
@@ -173,7 +172,6 @@ context('async actions', () => {
   })
 
   describe('actions.toggleSong', () => {
-
     it('dipatches MARK_SONG with `add` action', (done) => {
       const server = sinon.fakeServer.create()
 
